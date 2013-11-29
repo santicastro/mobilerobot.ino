@@ -18,7 +18,6 @@
 
 // Line follow sensors
 const int TOTAL_SENSORS = 3;
-const int MAX_SENSOR_READS = 1;
 const int SENSOR_RANGE = 200;
 struct Sensor_data{
 	int pin;
@@ -117,11 +116,6 @@ void RobotMovil::autoCalibrateLineSensors(){
 bool RobotMovil::detectLine(int which){
 	int pin = sensor_states[which].pin;
 	int value = analogRead(pin);
-	for(int i=1; i<MAX_SENSOR_READS;i++){
-		delay(1);
-		value += analogRead(pin);
-	}
-	value /= MAX_SENSOR_READS;
 	int difference = abs(sensor_states[which].background_value - value);
 	if(difference > SENSOR_RANGE){
 		return true;
